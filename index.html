@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="GetSmarterWash.css">
+
+	
+
+</head>
+<body ng-app="getSmarterWashApp">
+
+<!-- Nav bar and Footer for every page -->
+	<div class="container" ng-view></div>
+
+
+
+<!-- JavaScript, Firebase and Angular Links -->
+	<script src="angular.js"></script>
+	<script src="angular-route.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBjLiLbAYgNw8d4SToOniFzeliUMaytR1w",
+	    authDomain: "getsmarterwash.firebaseapp.com",
+	    databaseURL: "https://getsmarterwash.firebaseio.com",
+	    storageBucket: "getsmarterwash.appspot.com",
+	  };
+	  firebase.initializeApp(config);
+	</script>
+    
+ 	<script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>  
+
+	<script src="GetSmarterWash.js"></script>
+
+</body>
+</html>
