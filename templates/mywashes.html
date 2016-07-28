@@ -1,6 +1,7 @@
 <div class="OpeningBackgrounds"></div>
 <div class="navBackground">
-	<a class="navOpt" href="#/MyAccount">View My Account</a>
+	<a class="navOpt" ng-href="#/MyAccount">View My Account</a>
+	<a class="navOpt signOut" ng-click="auth.$signOut()" href="#/">Sign Out</a>
 
 	<h1 class="pageTitle"> Washes </h1>
 </div>
@@ -36,9 +37,11 @@
 		</form>
 
 		<div ng-show="appointmentConfirmed">
-			Your appointment for an {{aptType.value}} has been confirmed for {{date.value}}. Thank you!
+			Your appointment for has been confirmed for {{date.value}}. Thank you!
 		</div>
-
+		<div ng-show="tryAgain">
+			The booking for that day are already full, please try again.
+		</div>
 
 	</div>
 

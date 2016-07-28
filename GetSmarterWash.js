@@ -31,6 +31,14 @@ app.config(function($routeProvider){
 	}).when("/SignUp",{
 		controller: "SignUpCtrl",
 		templateUrl: "templates/signup.html"
+	}).when("/Management",{
+		controller: "ManagementCtrl",
+		templateUrl: "templates/mywashes.html",
+		resolve: {
+			"currentAuth": function($firebaseAuth){
+				return $firebaseAuth().$requireSignIn();
+			}
+		}
 	})
 });
 
@@ -87,9 +95,14 @@ app.controller("SignInCtrl", function($scope, $firebaseAuth, $routeParams, $wind
 	$scope.goSignUp = function(){
 		window.location.href="#/SignUp";
 	}
+
 });
 
-app.controller("HomeCtrl", function($scope, $firebaseAuth, $routeParams){
+app.controller("HomeCtrl", function($scope, $firebaseAuth, $routeParams, currentAuth, $firebaseObject){
+	$scope.curuser_id = currentAuth.uid;
+	var user_ref = firebase.database().ref().child("users").child($scope.curuser_id);
+	$scope.currentUser = $firebaseObject(user_ref);
+
 
 });
 
@@ -106,6 +119,7 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 	// Picking tabs
 	$scope.WashingHistory = true;
 	$scope.Booking = false;
+
 	$scope.openHistory = function(){
 		$scope.WashingHistory = true;
 		$scope.Booking = false;
@@ -122,13 +136,9 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 	console.log($scope.userApts);
 
 	var all_apt_ref=firebase.database().ref().child("appointments");
-	$scope.appointments=$firebaseObject(all_apt_ref);
+	$scope.appointments=$firebaseArray(all_apt_ref);
 	console.log($scope.appointments);
 
-	$scope.currentDate = new Date();
-	$scope.disabled = function(date, mode){
-		return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-	}
 
 	$( function() {
     	$( "#datepicker" ).datepicker({
@@ -150,33 +160,54 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
   	} );
 
 	$scope.requestApt = function(){
-		// console.log($scope.currentUser);
-		// console.log($scope.aptType.value);
 		console.log($scope.date.value);
+		var bookedApts = 0;
+		for (var i=0; i<$scope.appointments.length; i++){
+			if ($scope.date.value === $scope.appointments[i].date){
+				bookedApts += 1;
+			}
+		}
+		if (bookedApts < 5){
+			// console.log(bookedApts);
+			// console.log($scope.currentUser);
+			// console.log($scope.aptType.value);
+			// console.log($scope.date.value);
 
-		// deciding cost of wash
-		if ($scope.aptType.value === "externalWash"){
-			$scope.washBalance = 60;
+
+			// deciding cost of wash
+			if ($scope.aptType.value === "externalWash"){
+				$scope.washBalance = 60;
+			} else {
+				$scope.washBalance = 140;
+			};
+
+			// adding appointment to user
+			$scope.userApts.$add({
+				washType: $scope.aptType.value,
+				washBalance: $scope.washBalance,
+				washDate: $scope.date.value
+			});
+
+			// adding appointment info to Firebase
+			$scope.appointments.$add({
+				type: $scope.aptType.value,
+				cost: $scope.washBalance,
+				personId: currentAuth.uid,
+				status: "pre-service",
+				date: $scope.date.value
+			});
+
+			$scope.appointments.$save();
+		
+
+			// Appointment Confirmation
+			$scope.appointmentConfirmed = true;
+
 		} else {
-			$scope.washBalance = 140;
-		};
+			$scope.tryAgain = true;
+		}
 
-		// adding appointment to user
-		$scope.userApts.$add({
-			washType: $scope.aptType.value,
-			washBalance: $scope.washBalance,
-			washDate: $scope.date.value
-		});
-
-		// adding appointment info to Firebase
-		$scope.appointments.type = $scope.aptType.value;
-
-		$scope.appointments.$save();
-
-		console.log($scope.appointments);
-	
 	};
-
 });
 
 
