@@ -1,23 +1,29 @@
-<h1>Sign up!</h1>
+<div class="OpeningBackgrounds">
 
-<form ng-submit="signUp()">
-	<div>
-		<label>Name</label>
-		<input ng-model="name">
+	<div class="SignInForm">
+		<h1>Sign up!</h1>
+
+		<form ng-submit="signUp()">
+			<div>
+				<label>Name:</label>
+				<input ng-model="name">
+			</div>
+
+			<div>
+				<label>E-mail:</label>
+				<input ng-model="email">
+			</div>
+
+			<div>
+				<label>Password:</label>
+				<input ng-model="password">
+			</div>
+
+			<button class="loginButton">Sign up</button>
+
+		</form>
+
+		<button class="moveScreen" ng-click="goLogIn()">Back to Sign In</button>
 	</div>
 
-	<div>
-		<label>E-mail</label>
-		<input ng-model="email">
-	</div>
-
-	<div>
-		<label>Password</label>
-		<input ng-model="password">
-	</div>
-
-	<button class="ConfirmButton">Sign up</button>
-
-</form>
-
-<button ng-click="goLogIn()">Back to Sign In</button>
+</div>

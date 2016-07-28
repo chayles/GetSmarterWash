@@ -2,20 +2,276 @@
 	max-width: 1500px;
 }
 
-/* My Washes Page */
-.WashesTab{
-	display: inline-block;
-	background-color: white;
-	border: 2px solid #004466;
-	margin-top: 30px;
-	padding: 5px 10px 5px 10px;
-}
-.WashesWindow{
-	background-color: #cceeff;
-	border: 2px solid #004466;
+/* Sign In Page */
+.OpeningBackgrounds{
+	background-image: url(http://images.freeimages.com/images/previews/8ee/water-drops-4-1556126.jpg);
+	background-size: cover;
 	position: absolute;
-	top:80px;
+	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
+	z-index: -2;
 }
+.SignInForm{
+	font-family: "Catamaran", sans-serif;
+	font-weight: 300;
+	background-color: rgba(255,255,255,.75);
+	text-align: center;
+	padding: 20px 20px 20px 20px;
+	border-radius: 40px;
+	width: 320px;
+	height: 300px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	color: #2b3648;
+	font-size:16px;
+}
+.SignInForm h1{
+	font-family: "Signika", sans-serif;
+	font-weight: 700;
+	margin-top: 5px;
+}
+.SignInForm h3{
+	font-family: "Signika", sans-serif;
+	font-weight: 500;
+	margin-top: 20px;
+	font-size: 18px;
+}
+.SignInForm input{
+	border-radius:2px;
+	margin-top: 3px;
+	width: 180px;
+	border: 1.5px solid #2b3648;
+	background-color: rgba(111,122,150,.3);
+	font-weight: 500;
+	padding-right: 10px;
+
+}
+.SignInForm label{
+	font-weight: 500;
+}
+.loginButton{
+	padding: 7px 30px 6px 30px;
+	color: white;
+	background-color: #2b3648;
+	border-radius: 3px;
+	border: 0px solid transparent;
+	font-weight: 300;
+	margin-top: 12px;
+}
+.changeScreen{
+	padding: 7px 15px 6px 15px;
+	color: white;
+	background-color: #2b3648;
+	border-radius: 3px;
+	border: 0px solid transparent;
+	font-weight: 300;
+
+}
+.SignInForm button:hover{
+	background-color: white;
+	color: #2b3648;
+	transition: .25s;
+}
+
+/* Sign Up Page */
+.moveScreen{
+	padding: 7px 15px 6px 15px;
+	color: white;
+	background-color: #2b3648;
+	border-radius: 3px;
+	border: 0px solid transparent;
+	font-weight: 300;
+	margin-top: 10px;
+}
+
+/* Home Page */
+.Welcome{
+	font-family: "Catamaran", sans-serif;
+	font-weight: 300;
+	background-color: rgba(43, 54, 72,.8);
+	text-align: center;
+	padding: 20px 20px 20px 20px;
+	border-radius: 40px;
+	width: 320px;
+	height: 300px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	color: white;
+	font-size:20px;
+}
+.Welcome h1{
+	font-family: "Signika", sans-serif;
+	font-weight: 700;
+	margin-top: 15px;
+	font-size: 55px;
+}
+.WelcomeChoices{
+	text-decoration: none;
+	color: white;
+	font-size: 18px;
+	font-family: "Signika", sans-serif;
+	margin-top: 26px;
+	margin-bottom:20px;
+}
+.WecomeText{
+	margin-top:10px;
+}
+.WelcomeSplitter{
+	font-size: 14px;
+	opacity: 1;
+}
+.WelcomeOpt{
+	text-decoration: none;
+	color: white;
+	font-weight: 100;
+	opacity: .85;
+	transition: .4s;
+}
+.WelcomeOpt:hover{
+	text-decoration: none;
+	color: white;
+	font-weight:300;
+	opacity:1;
+	transition: .4s;
+	font-size: 21px;
+}
+
+/* My Washes Page */
+.navBackground{
+	background-color: rgba(43, 54, 72,.95);
+	width: 100%;
+	height: 125px;
+	color: white;
+	top:0;
+	position: absolute;
+	left:0;
+	right:0;
+	opacity: .8;
+}
+.navOpt{
+	color: white;
+	text-decoration: none;
+	font-family: "Catamaran", sans-serif;
+	width: 100px;
+	font-size: 18px;
+	position: absolute;
+	right: 20px;
+	top: 25px;
+	font-weight: 100;
+	transition: .2s;
+	opacity: .8;
+}
+.navOpt:hover{
+	text-decoration: none;
+	color: white;
+	font-weight: 500;
+	transition: .2s;
+	opacity: 1;
+	font-size: 19px;
+}
+.pageTitle{
+	text-align: center;
+	font-family: "Signika", sans-serif;
+	font-size: 65px;
+	margin-top: 15px;
+	font-weight: 700;
+}
+.WashesTab{
+	position: absolute;
+	background-color: rgba(255,255,255,.85);
+	padding: 8px 15px 20px 15px;
+	z-index: 1;
+	border-radius: 5px;
+	margin-top: 65px;
+	color: #2b3648;
+	font-family: "Catamaran", sans-serif;
+	font-weight: 500;
+}
+.BookingsTab{
+	background-color: rgba(255,255,255,.85);
+	padding: 8px 15px 20px 15px;
+	z-index: 1;
+	border-radius: 5px;
+	margin-top: 65px;
+	position:absolute;
+	margin-left:110px;
+	color: #2b3648;
+	font-family: "Catamaran", sans-serif;
+	font-weight: 500;
+}
+.WashesWindow{
+	background-color: white;
+	position: absolute;
+	top:100px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	text-align: center;
+	color: #2b3648;
+}
+.WashesWindow h2{
+	font-family: "Signika", sans-serif;
+	font-size: 30px;
+	font-weight: 700;
+}
+.DatePicker{
+	width: 100px;
+	height: 100px;
+	border: 2px solid orange;
+}
+.requestButton{
+	padding: 7px 30px 6px 30px;
+	color: white;
+	background-color: #2b3648;
+	border-radius: 3px;
+	border: 0px solid transparent;
+	font-weight: 300;
+	margin-top: 12px;
+}
+.requestButton:hover{
+	background-color: white;
+	border: 1.5px solid #2b3648;
+	color: #2b3648;
+	transition: .3s;
+	font-weight: 300;
+}
+.requestButton:active{
+	padding: 8px 31px 7px 31px;
+	transition: .3s;
+}
+.question{
+	font-family: "Catamaran",sans-serif;
+	font-size: 14px;
+	font-weight: 300;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
