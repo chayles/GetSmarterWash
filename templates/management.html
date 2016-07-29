@@ -24,7 +24,7 @@
 			<button ng-click="doneCreating()">Done</button>
 		</div>
 
-		<!-- List of all wash types with edit -->
+		<!-- List of all wash types-->
 		<table class="washList">
 		  <tr>
 		    <th>Wash Name</th>
@@ -50,8 +50,35 @@
 
 	<div class="WashesWindow" ng-show="WashesLog">
 		 
-		 <h2>Wash Log</h2>
+		<h2>Wash Log</h2>
 
+		<!-- List of all washes-->
+		<table class="washList">
+		  <tr>
+		    <th>Date</th>
+		    <th>Customer</th>
+		    <th>Wash Name</th>
+		    <th>Cost</th> 
+		    <th>Status</th>
+		  </tr>
+		  <tr ng-repeat="apt in appointments">
+		    <td>
+		    	{{apt.date}} 
+	    	</td>
+		    <td>
+		    	{{apt.id}}
+	    	</td> 
+		    <td>
+		    	{{apt.type}}
+	    	</td>
+	    	<td>
+	    		{{apt.cost}}
+    		</td>
+    		<td>
+    			{{apt.status}}
+			</td>
+		  </tr>
+		</table>
 
 	</div>
 

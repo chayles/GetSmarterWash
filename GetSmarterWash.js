@@ -171,7 +171,29 @@ app.controller("HomeCtrl", function($scope, $firebaseAuth, $routeParams, current
 
 });
 
-app.controller("AccountCtrl", function($scope, $firebaseAuth, $routeParams){
+app.controller("AccountCtrl", function($scope, $firebaseAuth, $routeParams, currentAuth, $firebaseObject, $firebaseArray){
+
+	$scope.curuser_id = currentAuth.uid;
+	var user_ref = firebase.database().ref().child("users").child($scope.curuser_id);
+	$scope.currentUser = $firebaseObject(user_ref);
+
+	var apt_ref=firebase.database().ref().child("users").child($scope.curuser_id).child("userApts");
+	$scope.userApts=$firebaseArray(apt_ref);
+
+	console.log($scope.userApts);
+
+// Get account balance
+	$scope.balance = 0;
+
+	$scope.getMyBalance = function(){
+		for (i=0; i<$scope.userApts.length; i++){
+			$scope.balance += $scope.userApts[i].washBalance;
+			console.log($scope.userApts[i].washBalance);
+			console.log("I hate fun");
+		}
+		console.log($scope.balance);
+	}
+
 
 });
 
@@ -206,6 +228,7 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 
 	var wash_ref=firebase.database().ref().child("washTypes");
 	$scope.washTypes=$firebaseArray(wash_ref);
+	console.log($scope.washTypes);
 
 
 	$( function() {
@@ -228,36 +251,47 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
   	} );
 
 	$scope.requestApt = function(){
+
 		console.log($scope.date.value);
 		var bookedApts = 0;
 		$scope.tryAgain = false;
 		$scope.appointmentConfirmed = false;
+
+
 		for (var i=0; i<$scope.appointments.length; i++){
 			if ($scope.date.value === $scope.appointments[i].date){
 				bookedApts += 1;
 			}
 		}
 		if (bookedApts < 5){
+			// console.log(bookedApts);
+			// console.log($scope.currentUser);
+			// console.log($scope.aptType.value);
+			// console.log($scope.date.value);
+			for (var i=0; i<$scope.washTypes.length; i++){
+				if ($scope.washTypes[i].name === $scope.aptType.value){
+					$scope.aptCost = $scope.washTypes[i].cost;
+				}
+				console.log($scope.aptCost);
+			}
 
 			// adding appointment to user
 			$scope.userApts.$add({
 				washType: $scope.aptType.value,
-				washBalance: $scope.washTypes.cost,
+				washBalance: $scope.aptCost,
 				washDate: $scope.date.value
 			});
 
 			// adding appointment info to Firebase
 			$scope.appointments.$add({
 				type: $scope.aptType.value,
-				cost: $scope.washTypes.cost,
+				cost: $scope.aptCost,
 				id: currentAuth.uid,
 				status: "pre-wash",
 				date: $scope.date.value
 			});
 
 			$scope.appointments.$save();
-			console.log($scope.userApts);
-			console.log($scope.washTypes.cost);
 
 			// Appointment Confirmation
 			$scope.appointmentConfirmed = true;
@@ -313,6 +347,10 @@ app.controller("ManagementCtrl", function($scope, $firebaseAuth, $routeParams, $
 
 	}
 
+// Washes Log
+
+	var all_apt_ref=firebase.database().ref().child("appointments");
+	$scope.appointments=$firebaseArray(all_apt_ref);
 
 });
 

@@ -7,7 +7,33 @@
 	</div>
 </div>
 
-<div class="WashesWindow">
+<div class="WashesWindow" on-load="getMyBalance()">
 	<h2>My Account</h2>
+
+
+	<h4>Balance Due: {{balance}}</h4>
+
+		<table class="washList">
+		  <tr>
+		    <th>Type</th>
+		    <th>Date</th> 
+		    <th>Cost</th>
+		  </tr>
+		  <tr ng-repeat="apt in userApts">
+		    <td>
+		    	{{apt.washType}} 
+	    	</td>
+		    <td>
+		    	{{apt.washDate}}
+	    	</td> 
+		    <td>
+		    	{{apt.washBalance}}
+	    	</td>
+		  </tr>
+		  <tr>
+		  	<td colspan="2" class="totalLabel">Total Balance:   </td>
+		  	<td class="totalBalance">{{balance}}</td>
+		</table>
+
 
 </div>

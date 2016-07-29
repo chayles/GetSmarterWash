@@ -270,6 +270,20 @@
 	font-size: 14px;
 	font-weight: 300;
 }
+.WashesWindow h4{
+	text-align: left;
+	margin-left: 15%;
+}
+
+/* My Account Page */
+.totalLabel{
+	font-weight: 700;
+	text-align: right;
+	font-size: 14px;
+}
+.totalBalance{
+	font-weight: 700;
+}
 
 /* Management */
 .pageTitleManagement{
