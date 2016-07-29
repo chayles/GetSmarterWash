@@ -37,7 +37,7 @@
 .SignInForm h3{
 	font-family: "Signika", sans-serif;
 	font-weight: 500;
-	margin-top: 20px;
+	margin-top: 15px;
 	font-size: 18px;
 }
 .SignInForm input{
@@ -69,12 +69,31 @@
 	border-radius: 3px;
 	border: 0px solid transparent;
 	font-weight: 300;
-
 }
 .SignInForm button:hover{
 	background-color: white;
 	color: #2b3648;
 	transition: .25s;
+}
+.managementButton{
+	font-size: 11px;
+	padding: 3px 6px 2px 6px;
+	background-color: white;
+	color: #2b3648;
+	border-radius:2px;
+	border: 0px solid transparent;
+	margin-left: 7px;
+	transition: .3s;
+}
+.managementButton:hover{
+	font-size: 11px;
+	padding: 3px 6px 2px 6px;
+	background-color: #2b3648;
+	color: white;
+	border-radius:2px;
+	border: 0px solid transparent;
+	margin-left: 5px;
+	transition: .3s;
 }
 
 /* Sign Up Page */
@@ -190,7 +209,7 @@
 	margin-top: 15px;
 	font-weight: 700;
 }
-.WashesTab{
+.Tab{
 	position: absolute;
 	background-color: rgba(255,255,255,.85);
 	padding: 8px 15px 20px 15px;
@@ -202,16 +221,8 @@
 	font-weight: 500;
 }
 .BookingsTab{
-	background-color: rgba(255,255,255,.85);
-	padding: 8px 15px 20px 15px;
-	z-index: 1;
-	border-radius: 5px;
-	margin-top: 65px;
 	position:absolute;
 	margin-left:110px;
-	color: #2b3648;
-	font-family: "Catamaran", sans-serif;
-	font-weight: 500;
 }
 .WashesWindow{
 	background-color: white;
@@ -260,8 +271,24 @@
 	font-weight: 300;
 }
 
-
-
+/* Management */
+.pageTitleManagement{
+	text-align: center;
+	font-family: "Signika", sans-serif;
+	font-size: 50px;
+	margin-top: 15px;
+	font-weight: 700;
+}
+.WashLogTab{
+	position:absolute;
+	margin-left:130px;
+}
+.washList{
+	text-align: left;
+	width: 70%;
+	margin: 0 auto;
+	border: 1px solid #e6e6e6;
+}
 
 
 

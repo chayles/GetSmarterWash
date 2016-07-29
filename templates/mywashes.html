@@ -8,12 +8,32 @@
 
 <div class="container">
 
-	<button class="WashesTab" ng-click="openHistory()">My Washes</button>
-	<button class="BookingsTab" ng-click="openBookings()">Book Washing</button>
+	<button class="Tab" ng-click="openHistory()">My Washes</button>
+	<button class="Tab BookingsTab" ng-click="openBookings()">Book Washing</button>
 
 	<div class="WashesWindow" ng-show="WashingHistory">
 
 		<h2>My Washes</h2>
+
+		<!-- List of all current user washes-->
+		<table class="washList">
+		  <tr>
+		    <th>Date</th>
+		    <th>Type</th> 
+		    <th>Cost</th>
+		  </tr>
+		  <tr ng-repeat="apt in userApts">
+		    <td>
+		    	{{apt.washType}} 
+	    	</td>
+		    <td>
+		    	{{apt.washDate}}
+	    	</td> 
+		    <td>
+		    	{{apt.washBalance}}
+	    	</td>
+		  </tr>
+		</table>
 
 	</div>
 
@@ -27,8 +47,7 @@
 
 			<label class="question">What type of wash would you like?</label>
 			<select ng-model="aptType.value" required>
-				<option value="externalWash">External wash only</option>
-	 			<option value="fullWash">Full wash (external and internal)</option>
+				<option value="{{wash.name}}" ng-repeat="wash in washTypes">{{wash.name}}, ${{wash.cost}}
  			</select>
  			<div role="alert">
 				<span class="error" ng-show="myForm.input.$error.required"></span>
@@ -40,7 +59,7 @@
 			Your appointment for has been confirmed for {{date.value}}. Thank you!
 		</div>
 		<div ng-show="tryAgain">
-			The booking for that day are already full, please try again.
+			The bookings for that day are already full, please try again.
 		</div>
 
 	</div>

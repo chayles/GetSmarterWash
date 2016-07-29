@@ -1,0 +1,59 @@
+<div class="OpeningBackgrounds"></div>
+<div class="navBackground">
+	<h1 class="pageTitleManagement"> Wash Management </h1>
+</div>
+
+<div class="container">
+
+	<button class="WashesCtrlTab Tab" ng-click="openControl()">Washes Control</button>
+	<button class="WashLogTab Tab" ng-click="openLog()">Wash Log</button>
+
+	<div class="WashesWindow" ng-show="WashesControl">
+
+		<h2>Washes Control</h2>
+		<button class="createWash" ng-click="newWash()">Create Wash Type</button>
+
+		<!-- New Wash Pop-up -->
+		<div ng-show="CreateWash">
+			<form ng-submit="createWash()">
+				<input type="text" placeholder="name" ng-model="washName"/>
+				$<input type="number" placeholder="cost" ng-model="washCost"/>
+				<textarea type="text" placeholder="description" ng-model="washDesc"/>
+				<button>Submit</button>
+			</form>
+			<button ng-click="doneCreating()">Done</button>
+		</div>
+
+		<!-- List of all wash types with edit -->
+		<table class="washList">
+		  <tr>
+		    <th>Wash Name</th>
+		    <th>Cost</th> 
+		    <th>Description</th>
+		  </tr>
+		  <tr ng-repeat="wash in washTypes">
+		    <td>
+		    	{{wash.name}} 
+	    	</td>
+		    <td>
+		    	{{wash.cost}}
+	    	</td> 
+		    <td>
+		    	{{wash.description}}
+	    	</td>
+		  </tr>
+		</table>
+
+
+	</div>
+
+
+	<div class="WashesWindow" ng-show="WashesLog">
+		 
+		 <h2>Wash Log</h2>
+
+
+	</div>
+
+
+</div>
