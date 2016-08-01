@@ -20,7 +20,7 @@
 		    <th>Date</th> 
 		    <th>Cost</th>
 		  </tr>
-		  <tr ng-repeat="apt in userApts">
+		  <tr ng-repeat="apt in userApts | orderBy:'washDate'">
 		    <td>
 		    	{{apt.washType}} 
 	    	</td>

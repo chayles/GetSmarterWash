@@ -178,10 +178,9 @@ app.controller("AccountCtrl", function($scope, $firebaseAuth, $routeParams, curr
 	var user_ref = firebase.database().ref().child("users").child($scope.curuser_id);
 	$scope.users = $firebaseObject(user_ref);
 
-	var apt_ref=firebase.database().ref().child("users").child($scope.curuser_id).child("userApts");
-	$scope.userApts=$firebaseArray(apt_ref);
+	var apts_ref=firebase.database().ref().child("users").child($scope.curuser_id).child("userApts");
+	$scope.userApts=$firebaseArray(apts_ref);
 
-	console.log($scope.userApts);
 
 // Get account balance
 	$scope.balance = 0;
@@ -191,9 +190,21 @@ app.controller("AccountCtrl", function($scope, $firebaseAuth, $routeParams, curr
 			$scope.balance += $scope.userApts[i].washBalance;
 		}
 		console.log($scope.balance);
-	
 	}
 
+// Pay account balance
+	$scope.payBalance = function(){
+		for (var i=0; i<$scope.userApts.length; i++){
+
+			$scope.userApts[i].washPaid = true;
+			
+		}
+		
+		console.log($scope.userApts);
+		$scope.users.balance = 0;
+		$scope.users.$save();
+
+	}
 
 });
 
@@ -228,7 +239,6 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 
 	var wash_ref=firebase.database().ref().child("washTypes");
 	$scope.washTypes=$firebaseArray(wash_ref);
-	console.log($scope.washTypes);
 
 
 	$( function() {
@@ -281,7 +291,8 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 			$scope.userApts.$add({
 				washType: $scope.aptType.value,
 				washBalance: $scope.aptCost,
-				washDate: $scope.date.value
+				washDate: $scope.date.value,
+				washPaid: false
 			});
 
 			// adding appointment info to Firebase
