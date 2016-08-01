@@ -284,6 +284,11 @@
 .totalBalance{
 	font-weight: 700;
 }
+.WashesWindow h5{
+	text-align: left;
+	margin-left: 15%;
+	margin-top: 30px;
+}
 
 /* Management */
 .pageTitleManagement{

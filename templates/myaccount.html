@@ -7,11 +7,12 @@
 	</div>
 </div>
 
-<div class="WashesWindow" on-load="getMyBalance()">
+<div class="WashesWindow">
 	<h2>My Account</h2>
 
+	<h4>Balance Due: {{users.balance}}</h4>
 
-	<h4>Balance Due: {{balance}}</h4>
+	<h5>Unpaid washes:</h5>
 
 		<table class="washList">
 		  <tr>
@@ -30,10 +31,8 @@
 		    	{{apt.washBalance}}
 	    	</td>
 		  </tr>
-		  <tr>
-		  	<td colspan="2" class="totalLabel">Total Balance:   </td>
-		  	<td class="totalBalance">{{balance}}</td>
 		</table>
+	<button ng-click="payBalance()">Pay my balance</button>
 
 
 </div>

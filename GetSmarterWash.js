@@ -73,6 +73,7 @@ app.controller("SignUpCtrl", function($scope, $firebaseAuth, $window, $firebaseO
 	    			$scope.users.name = $scope.name;
 	    			$scope.users.email = $scope.email;
 	    			$scope.users.role = "customer";
+	    			$scope.users.balance = 0;
 	    			$scope.users.$save();
 	    			console.log($scope.users);
 	    			window.location.href="#/";
@@ -175,7 +176,7 @@ app.controller("AccountCtrl", function($scope, $firebaseAuth, $routeParams, curr
 
 	$scope.curuser_id = currentAuth.uid;
 	var user_ref = firebase.database().ref().child("users").child($scope.curuser_id);
-	$scope.currentUser = $firebaseObject(user_ref);
+	$scope.users = $firebaseObject(user_ref);
 
 	var apt_ref=firebase.database().ref().child("users").child($scope.curuser_id).child("userApts");
 	$scope.userApts=$firebaseArray(apt_ref);
@@ -185,13 +186,12 @@ app.controller("AccountCtrl", function($scope, $firebaseAuth, $routeParams, curr
 // Get account balance
 	$scope.balance = 0;
 
-	$scope.getMyBalance = function(){
+	$scope.getBalance = function(){
 		for (i=0; i<$scope.userApts.length; i++){
 			$scope.balance += $scope.userApts[i].washBalance;
-			console.log($scope.userApts[i].washBalance);
-			console.log("I hate fun");
 		}
 		console.log($scope.balance);
+	
 	}
 
 
@@ -201,7 +201,7 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 	
 	$scope.curuser_id = currentAuth.uid;
 	var user_ref = firebase.database().ref().child("users").child($scope.curuser_id);
-	$scope.currentUser = $firebaseObject(user_ref);
+	$scope.users = $firebaseObject(user_ref);
 
 	// Picking tabs
 	$scope.WashingHistory = true;
@@ -275,6 +275,8 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 				console.log($scope.aptCost);
 			}
 
+			$scope.users.balance += $scope.aptCost;
+			$scope.users.$save();
 			// adding appointment to user
 			$scope.userApts.$add({
 				washType: $scope.aptType.value,
@@ -293,8 +295,11 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 
 			$scope.appointments.$save();
 
+
 			// Appointment Confirmation
 			$scope.appointmentConfirmed = true;
+
+
 
 		} else {
 			$scope.tryAgain = true;
