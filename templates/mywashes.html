@@ -15,7 +15,8 @@
 
 		<h2>My Washes</h2>
 
-		<h4>Upcoming Appointments</h4>
+
+		<h4>Upcoming Appointment</h4>
 		<!-- List of all current user washes-->
 		<table class="washList">
 		  <tr>
@@ -23,9 +24,9 @@
 		    <th>Date</th> 
 		    <th>Cost</th>
 		  </tr>
-		  <tr ng-repeat="apt in userApts | orderBy: 'washDate'">
-		    <td>
-		    	{{apt.washType}} 
+		  <tr class="aptListing" ng-repeat="apt in userApts | orderBy: 'washDate'">
+		    <td ng-mouseenter="deleteBtn=true" ng-mouseleave="deleteBtn=false">
+		    	{{apt.washType}} <button ng-show="deleteBtn" ng-click="deleteApt(type, date)">Delete</button>
 	    	</td>
 		    <td>
 		    	{{apt.washDate}}
@@ -60,7 +61,10 @@
 			Your appointment for has been confirmed for {{date.value}}. Thank you!
 		</div>
 		<div ng-show="tryAgain">
-			The bookings for that day are already full, please try again.
+			The bookings for that day are already full, but we have added you to the waitlist. Please feel free to make an appointment for a different date.
+		</div>
+		<div ng-show="alreadyBooked">
+			Sorry, because of high demand we can only allow customers to book one future appointment at a time.
 		</div>
 
 	</div>

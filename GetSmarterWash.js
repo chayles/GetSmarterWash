@@ -183,26 +183,23 @@ app.controller("AccountCtrl", function($scope, $firebaseAuth, $routeParams, curr
 
 
 // Get account balance
-	$scope.balance = 0;
 
-	$scope.getBalance = function(){
-		for (i=0; i<$scope.userApts.length; i++){
-			$scope.balance += $scope.userApts[i].washBalance;
-		}
-		console.log($scope.balance);
-	}
+
+	// $scope.getBalance = function(){
+	// 	for (i=0; i<$scope.userApts.length; i++){
+	// 		$scope.balance += $scope.userApts[i].washBalance;
+	// 	}
+	// 	console.log($scope.balance);
+	// }
 
 // Pay account balance
 	$scope.payBalance = function(){
-		for (var i=0; i<$scope.userApts.length; i++){
-
-			$scope.userApts[i].washPaid = true;
-			
-		}
 		
 		console.log($scope.userApts);
 		$scope.users.balance = 0;
+		$scope.users.userApts=[];
 		$scope.users.$save();
+
 
 	}
 
@@ -240,6 +237,8 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 	var wash_ref=firebase.database().ref().child("washTypes");
 	$scope.washTypes=$firebaseArray(wash_ref);
 
+	var wait_list_ref=firebase.database().ref().child("waitList");
+	$scope.waitList=$firebaseArray(wait_list_ref);
 
 	$( function() {
     	$( "#datepicker" ).datepicker({
@@ -260,20 +259,28 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 
   	} );
 
+
 	$scope.requestApt = function(){
 
 		console.log($scope.date.value);
 		var bookedApts = 0;
 		$scope.tryAgain = false;
 		$scope.appointmentConfirmed = false;
+		$scope.alreadyBooked = false;
 
+		var rightNow = Date.now();
 
 		for (var i=0; i<$scope.appointments.length; i++){
 			if ($scope.date.value === $scope.appointments[i].date){
 				bookedApts += 1;
 			}
 		}
-		if (bookedApts < 5){
+
+		if ($scope.userApts.length === 1){
+
+			$scope.alreadyBooked = true;
+
+		} else if (bookedApts < 5 && $scope.userApts.length === 0){
 			// console.log(bookedApts);
 			// console.log($scope.currentUser);
 			// console.log($scope.aptType.value);
@@ -306,17 +313,47 @@ app.controller("WashesCtrl", function($scope, $firebaseAuth, $routeParams, $fire
 
 			$scope.appointments.$save();
 
-
 			// Appointment Confirmation
 			$scope.appointmentConfirmed = true;
 
-
-
 		} else {
 			$scope.tryAgain = true;
+
+			for (var i=0; i<$scope.washTypes.length; i++){
+				if ($scope.washTypes[i].name === $scope.aptType.value){
+					$scope.aptCost = $scope.washTypes[i].cost;
+				}
+				console.log($scope.aptCost);
+			}
+
+			$scope.waitList.$add({
+				type: $scope.aptType.value,
+				cost: $scope.aptCost,
+				id: currentAuth.uid,
+				status: "wait-listed",
+				date: $scope.date.value,
+				createdAt: Date.now()
+			});
+
+			$scope.waitList.$save();
 		}
 
 	};
+
+// Deleting an appointment
+
+	$scope.deleteApt = function(type, date){
+		console.log($scope.appointments);
+		for (var i=0; i<$scope.appointments.length; i++){
+			if ($scope.appointments[i].id === $scope.curuser_id){
+				$scope.appointments.$remove($scope.appointments[i]);
+			}
+		}
+
+		$scope.users.userApts = [];
+		$scope.users.$save();
+	}
+
 });
 
 // Management interface
@@ -356,7 +393,7 @@ app.controller("ManagementCtrl", function($scope, $firebaseAuth, $routeParams, $
 		$scope.washTypes.$add({
 			name: $scope.washName,
 			cost: $scope.washCost,
-			description: $scope.washDesc,
+			description: $scope.washDesc
 		});
 
 		$scope.washTypes.$save();
@@ -367,6 +404,9 @@ app.controller("ManagementCtrl", function($scope, $firebaseAuth, $routeParams, $
 
 	var all_apt_ref=firebase.database().ref().child("appointments");
 	$scope.appointments=$firebaseArray(all_apt_ref);
+
+	var wait_list_ref=firebase.database().ref().child("waitList");
+	$scope.waitList=$firebaseArray(wait_list_ref);
 
 });
 

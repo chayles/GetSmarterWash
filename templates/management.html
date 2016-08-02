@@ -61,7 +61,7 @@
 		    <th>Cost</th> 
 		    <th>Status</th>
 		  </tr>
-		  <tr ng-repeat="apt in appointments">
+		  <tr ng-repeat="apt in appointments | orderBy: 'date'">
 		    <td>
 		    	{{apt.date}} 
 	    	</td>
@@ -80,6 +80,32 @@
 		  </tr>
 		</table>
 
+
+		<h2>Wait-list</h2>
+
+		<!-- List of all washes-->
+		<table class="washList">
+		  <tr>
+		    <th>Date</th>
+		    <th>Customer</th>
+		    <th>Wash Name</th>
+		    <th>Cost</th> 
+		  </tr>
+		  <tr ng-repeat="w in waitList | orderBy: 'date'">
+		    <td>
+		    	{{w.date}} 
+	    	</td>
+		    <td>
+		    	{{w.id}}
+	    	</td> 
+		    <td>
+		    	{{w.type}}
+	    	</td>
+	    	<td>
+	    		{{w.cost}}
+    		</td>
+		  </tr>
+		</table>
 	</div>
 
 
